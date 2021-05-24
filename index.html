@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Veterinaria - Administrador de pacientes</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/normalize.css" />
+		<link rel="stylesheet" href="css/styles.css" />
+	</head>
+	<body>
+		<header class="header">
+			<h1 class="header__titulo">Veterinaria</h1>
+		</header>
+		<div class="contenedor">
+			<form action="" class="formulario" id="formulario">
+				<h2>Datos del Paciente</h2>
+				<div class="campo">
+					<label for="nombre-mascota" class="label">Nombre Mascota: </label>
+					<input
+						name="mascota"
+						type="text"
+						id="nombre-mascota"
+						class="input"
+						placeholder="Nombre Mascota"
+					/>
+				</div>
+				<div class="campo">
+					<label for="propietario" class="label">Propietario: </label>
+					<input
+						name="propietario"
+						type="text"
+						id="propietario"
+						class="input"
+						placeholder="Nombre Dueño de la Mascota"
+					/>
+				</div>
+				<div class="campo">
+					<label for="telefono" class="label">Telefono: </label>
+					<input
+						name="telefono"
+						type="tel"
+						id="telefono"
+						class="input"
+						placeholder="Numero de Telefono"
+					/>
+				</div>
+				<div class="campo">
+					<label for="fecha" class="label">Fecha: </label>
+					<input name="fecha" type="date" id="fecha" class="input" />
+				</div>
+				<div class="campo">
+					<label for="hora" class="label">Hora: </label>
+					<input name="hora" type="time" id="hora" class="input" />
+				</div>
+				<div class="campo">
+					<label for="sintomas" class="label">Sintomas: </label>
+					<textarea name="sintomas" id="sintomas" class="textarea"></textarea>
+				</div>
+				<button type="submit" class="button" id="submit">Crear Cita</button>
+			</form>
+			<main class="main">
+				<h2 id="main__h2">No hay Citas, comienza creando una</h2>
+				<ul class="lista-citas" id="lista-citas"></ul>
+			</main>
+		</div>
+		<template id="template-cita">
+			<li class="cita" id="cita" data-id="">
+				<h3 class="cita__nombre-mascota" id="cita__nombre-mascota">Hook</h3>
+				<p class="cita__p">
+					Propietario:
+					<span class="cita__propietario" id="cita__propietario">Juan</span>
+				</p>
+				<p class="cita__p">
+					Telefono:
+					<span class="cita__telefono" id="cita__telefono">112588915</span>
+				</p>
+				<p class="cita__p">
+					Fecha:
+					<span class="cita__fecha" id="cita__fecha">2020-10-32</span>
+				</p>
+				<p class="cita__p">
+					Hora:
+					<span class="cita__hora" id="cita__hora">10:30</span>
+				</p>
+				<p class="cita__p">
+					Sintomas:
+					<span class="cita__sintomas" id="cita__sintomas">Juan</span>
+				</p>
+				<div class="cita__botones">
+					<button type="button" class="cita__eliminar" id="cita__eliminar">
+						Eliminar<span class="material-icons"> delete </span>
+					</button>
+					<button type="button" class="cita__editar" id="cita__editar">
+						Editar<span class="material-icons"> mode_edit </span>
+					</button>
+				</div>
+			</li>
+		</template>
+		<template id="template-alerta">
+			<div class="alerta" id="alerta">
+				<p class="alerta__p" id="alerta__id"></p>
+			</div>
+		</template>
+		<script src="js/app.js"></script>
+	</body>
+</html>

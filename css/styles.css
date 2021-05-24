@@ -1,0 +1,227 @@
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: #f9fcfb;
+}
+
+.header {
+  background-color: #1eae98;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.header .header__titulo {
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}
+
+.contenedor {
+  margin-bottom: 64px;
+}
+
+.contenedor > * {
+  width: 90%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .contenedor > * {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .contenedor {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    gap: 64px;
+  }
+}
+
+.formulario {
+  margin-bottom: 40px;
+}
+
+.formulario .campo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.formulario .label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.formulario .input {
+  height: 48px;
+  padding: 16px;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.formulario .input:focus {
+  border: 2px solid #005792;
+}
+
+.formulario .textarea {
+  resize: none;
+  height: 80px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 3px;
+}
+
+.formulario .textarea:focus {
+  border: 2px solid #005792;
+}
+
+.formulario .button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 3px;
+  width: 100%;
+  color: white;
+  font-weight: 500;
+  height: 48px;
+  padding: 16px;
+  font-size: 18px;
+  border: none;
+  background-color: #1eae98;
+  margin-bottom: 16px;
+}
+
+.formulario .button:hover {
+  cursor: pointer;
+}
+
+.lista-citas {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.cita {
+  margin-bottom: 32px;
+}
+
+.cita .cita__nombre-mascota {
+  font-size: 22px;
+  margin: 4px 0;
+  text-transform: capitalize;
+}
+
+.cita .cita__p,
+.cita .cita__nombre-mascota {
+  font-weight: 600;
+}
+
+.cita span {
+  font-weight: 400;
+}
+
+.cita .cita__botones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+}
+
+.cita .cita__botones .cita__eliminar,
+.cita .cita__botones .cita__editar {
+  position: relative;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  font-weight: 600;
+  height: 48px;
+  padding: 16px;
+}
+
+.cita .cita__botones .cita__eliminar:hover,
+.cita .cita__botones .cita__editar:hover {
+  cursor: pointer;
+}
+
+.cita .cita__botones .cita__eliminar span,
+.cita .cita__botones .cita__editar span {
+  position: relative;
+  z-index: -1;
+}
+
+.cita .cita__botones .cita__eliminar {
+  background-color: #91091e;
+}
+
+.cita .cita__botones .cita__editar {
+  background-color: #1eae98;
+}
+
+.alerta {
+  height: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.alerta .alerta__p {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.bg-red {
+  background-color: #91091e;
+}
+
+.bg-green {
+  background-color: #005792;
+}
+/*# sourceMappingURL=styles.css.map */

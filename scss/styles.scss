@@ -1,0 +1,161 @@
+@import "variables";
+
+html {
+	box-sizing: border-box;
+}
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+body {
+	font-family: $fuente;
+	background-color: #f9fcfb;
+}
+.header {
+	background-color: $light-green;
+	padding: 16px;
+	margin-bottom: 8px;
+	.header__titulo {
+		text-align: center;
+		color: #fff;
+		margin: 0;
+	}
+}
+.contenedor {
+	margin-bottom: 64px;
+	> * {
+		width: 90%;
+		max-width: 450px;
+		margin: 0 auto;
+		@media screen and (min-width: 1024px) {
+			width: 100%;
+			margin: 0;
+		}
+	}
+	@media screen and (min-width: 1024px) {
+		display: flex;
+		justify-content: center;
+		gap: 64px;
+	}
+}
+.formulario {
+	margin-bottom: 40px;
+	.campo {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 16px;
+	}
+	.label {
+		font-weight: 500;
+		margin-bottom: 4px;
+	}
+	.input {
+		height: 48px;
+		padding: 16px;
+		outline: none;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		&:focus {
+			border: 2px solid $dark-blue;
+		}
+	}
+	.textarea {
+		resize: none;
+		height: 80px;
+		padding: 16px;
+		border: 1px solid #ccc;
+		outline: none;
+		border-radius: 3px;
+		&:focus {
+			border: 2px solid $dark-blue;
+		}
+	}
+	.button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 3px;
+		width: 100%;
+		color: white;
+		font-weight: 500;
+		height: 48px;
+		padding: 16px;
+		font-size: 18px;
+		border: none;
+		background-color: $light-green;
+		margin-bottom: 16px;
+	}
+	.button:hover {
+		cursor: pointer;
+	}
+}
+// Template cita para JS
+.lista-citas {
+	list-style: none;
+	padding-left: 0px;
+}
+.cita {
+	margin-bottom: 32px;
+	.cita__nombre-mascota {
+		font-size: 22px;
+		margin: 4px 0;
+		text-transform: capitalize;
+	}
+	.cita__p,
+	.cita__nombre-mascota {
+		font-weight: 600;
+	}
+	span {
+		font-weight: 400;
+	}
+	.cita__botones {
+		display: flex;
+		gap: 8px;
+		.cita__eliminar,
+		.cita__editar {
+			position: relative;
+			z-index: 100;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: none;
+			color: white;
+			border-radius: 3px;
+			font-weight: 600;
+			height: 48px;
+			padding: 16px;
+			&:hover {
+				cursor: pointer;
+			}
+			span {
+				position: relative;
+				z-index: -1;
+			}
+		}
+		.cita__eliminar {
+			background-color: $dark-red;
+		}
+		.cita__editar {
+			background-color: $light-green;
+		}
+	}
+}
+// Template alerta para JS
+.alerta {
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.alerta__p {
+		color: white;
+		font-size: 18px;
+		font-weight: 500;
+	}
+}
+.bg-red {
+	background-color: $dark-red;
+}
+.bg-green {
+	background-color: $dark-blue;
+}
