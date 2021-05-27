@@ -1,3 +1,53 @@
+class DB {
+	static agregarData(data) {
+		const tx = db.transaction("citas", "readwrite");
+		const citas = tx.objectStore("citas");
+		citas.add(data);
+		tx.oncomplete = () => {
+			reset();
+		};
+	}
+	static eliminarData(dataID) {
+		const tx = db.transaction("citas", "readwrite");
+		const citas = tx.objectStore("citas");
+		citas.delete(dataID);
+	}
+	static modificarData(dataID) {
+		const tx = db.transaction("citas", "readwrite");
+		const citasObjectStore = tx.objectStore("citas");
+		const request = citasObjectStore.get(dataID);
+		request.onsuccess = (e) => {
+			let data = e.target.result;
+			data = { ...citaObj };
+			citasObjectStore.put(data);
+		};
+		tx.oncomplete = () => {
+			formulario.querySelector("#submit").textContent = "Agregar Cita";
+			ui.mostrarAlerta("Cita modificada correctamente", "correcto");
+			modificando = false;
+			reset();
+			delete citaObj.id;
+			ui.mostrarCitas(citas);
+		};
+	}
+	static obtenerDataDB() {
+		let arrCitas = [];
+		const tx = db.transaction("citas", "readwrite");
+		const citasObjectStore = tx.objectStore("citas");
+		const request = citasObjectStore.openCursor();
+		request.onsuccess = (e) => {
+			const cursor = e.target.result;
+			if (cursor) {
+				arrCitas = [...arrCitas, cursor.value];
+				cursor.continue();
+			}
+		};
+		tx.oncomplete = () => {
+			citas.citas = arrCitas;
+			ui.mostrarCitas(citas);
+		};
+	}
+}
 class Citas {
 	constructor() {
 		this.citas = [];
@@ -92,6 +142,30 @@ class UI {
 		citaObj.id = id;
 	}
 }
+// Variables
+const citas = new Citas();
+const ui = new UI();
+const citaObj = {
+	mascota: "",
+	propietario: "",
+	telefono: "",
+	fecha: "",
+	hora: "",
+	sintomas: "",
+};
+let modificando = false;
+let db = null;
+const formulario = document.querySelector("#formulario");
+const listaCitas = document.querySelector("#lista-citas");
+// Campos inputs
+const nombreMascota = document.querySelector("#nombre-mascota");
+const propietario = document.querySelector("#propietario");
+const telefono = document.querySelector("#telefono");
+const fecha = document.querySelector("#fecha");
+const hora = document.querySelector("#hora");
+const sintomas = document.querySelector("#sintomas");
+
+// Funciones
 const llenarObjCita = (e) => {
 	const clave = e.target.name;
 	const valor = e.target.value;
@@ -107,16 +181,13 @@ const validarFormulario = (e) => {
 	}
 	if (modificando === true) {
 		citas.modificarCita({ ...citaObj });
-		reset();
-		delete citaObj.id;
-		formulario.querySelector("#submit").textContent = "Agregar Cita";
-		ui.mostrarAlerta("Cita modificada correctamente", "correcto");
-		ui.mostrarCitas(citas);
-		modificando = false;
+		DB.modificarData(citaObj.id);
+
 		return;
 	}
-	citas.agregarCita({ ...citaObj, id: Date.now() });
-	reset();
+	const cita = { ...citaObj, id: Date.now() };
+	citas.agregarCita(cita);
+	DB.agregarData(cita);
 	ui.mostrarAlerta("Cita agregada correctamente", "correcto");
 	ui.mostrarCitas(citas);
 };
@@ -133,6 +204,7 @@ const validarBtn = (e) => {
 		const id = Number(cita.getAttribute("data-id"));
 		citas.borrarCita(id);
 		ui.mostrarCitas(citas);
+		DB.eliminarData(id);
 		return;
 	}
 	if (e.target.classList.contains("cita__editar")) {
@@ -143,28 +215,24 @@ const validarBtn = (e) => {
 		return;
 	}
 };
-// Variables
-const citas = new Citas();
-const ui = new UI();
-const citaObj = {
-	mascota: "",
-	propietario: "",
-	telefono: "",
-	fecha: "",
-	hora: "",
-	sintomas: "",
-};
-let modificando = false;
-const formulario = document.querySelector("#formulario");
-const listaCitas = document.querySelector("#lista-citas");
-// Campos inputs
-const nombreMascota = document.querySelector("#nombre-mascota");
-const propietario = document.querySelector("#propietario");
-const telefono = document.querySelector("#telefono");
-const fecha = document.querySelector("#fecha");
-const hora = document.querySelector("#hora");
-const sintomas = document.querySelector("#sintomas");
+const crearDB = () => {
+	const request = window.indexedDB.open("citasDB", 1);
+	request.onsuccess = (e) => {
+		db = e.target.result;
+		DB.obtenerDataDB();
+	};
+	request.onupgradeneeded = (e) => {
+		db = e.target.result;
 
+		const citas = db.createObjectStore("citas", { keyPath: "id" });
+		citas.createIndex("mascota", "mascota", { unique: false });
+		citas.createIndex("propietario", "propietario", { unique: false });
+		citas.createIndex("telefono", "telefono", { unique: false });
+		citas.createIndex("fecha", "fecha", { unique: false });
+		citas.createIndex("hora", "hora", { unique: false });
+		citas.createIndex("sintomas", "sintomas", { unique: false });
+	};
+};
 const loadEventListeners = () => {
 	nombreMascota.addEventListener("blur", llenarObjCita);
 	propietario.addEventListener("blur", llenarObjCita);
@@ -174,7 +242,9 @@ const loadEventListeners = () => {
 	sintomas.addEventListener("blur", llenarObjCita);
 	formulario.addEventListener("submit", validarFormulario);
 	listaCitas.addEventListener("click", validarBtn);
-	document.addEventListener("load", reset);
-	document.addEventListener("DOMContentLoaded", reset);
 };
-loadEventListeners();
+
+window.addEventListener("load", () => {
+	loadEventListeners();
+	crearDB();
+});
